@@ -78,6 +78,11 @@ form button:hover {
 .grid-box p {
     font-size: 18px;
 }
-.resultado {
+.paragrafo-verde {
+    background-color: rgb(86, 233, 142);
+    padding: 10px;
+}
+.paragrafo-vermelho {
+    background-color: rgb(212, 78, 78);
     padding: 10px;
 }
