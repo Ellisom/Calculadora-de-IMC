@@ -1,65 +1,74 @@
-function meuEscopo(){
-    const form = document.querySelector('.form');
     const resultado = document.querySelector('.resultado');
-
+    const form = document.querySelector('.form');
 
     function recebeEvento(evento) {
         evento.preventDefault();
 
         let pesoPessoa = form.querySelector('#peso');
         let alturaPessoa = form.querySelector('#altura');
-        console.log(pesoPessoa);
-        console.log(alturaPessoa);
         pesoPessoa = Number(pesoPessoa.value);
         alturaPessoa = Number(alturaPessoa.value);
-        console.log(pesoPessoa);
-        console.log(alturaPessoa);
 
-        const resultadoIMC = pesoPessoa / (alturaPessoa * alturaPessoa);
-        console.log(resultadoIMC);
+        const resultadoIMC = getIMC(pesoPessoa, alturaPessoa);
 
         if (resultadoIMC < 18.5) {
-            resultado.innerHTML = `<p>Seu IMC é ${resultadoIMC.toFixed(2)} (Abaixo do peso)</p>`;
+            setResultado(`Seu IMC é ${resultadoIMC} (Abaixo do peso)`, true);
             resultado.style.backgroundColor = 'rgb(86, 233, 142)';
             
         }
         else if (resultadoIMC >= 18.5 && resultadoIMC <= 24.9) {
-            resultado.innerHTML = `<p>Seu IMC é ${resultadoIMC.toFixed(2)} (Peso normal)</p>`;
+            setResultado(`Seu IMC é ${resultadoIMC} (Peso normal)`, true);
             resultado.style.backgroundColor = 'rgb(86, 233, 142)';
         }
         else if (resultadoIMC >= 25 && resultadoIMC <= 29.9) {
-            resultado.innerHTML = `<p>Seu IMC é ${resultadoIMC.toFixed(2)} (Sobrepeso)</p>`;
+            setResultado(`Seu IMC é ${resultadoIMC} (Sobrepeso)`, true);
             resultado.style.backgroundColor = 'rgb(86, 233, 142)';
         }
         else if (resultadoIMC >= 30 && resultadoIMC <= 34.9) {
-            resultado.innerHTML = `<p>Seu IMC é ${resultadoIMC.toFixed(2)} (Obesidade grau 1)</p>`;
+            setResultado(`Seu IMC é ${resultadoIMC} (Obesidade grau 1)`, true);
             resultado.style.backgroundColor = 'rgb(86, 233, 142)';
         }
         else if (resultadoIMC >= 35 && resultadoIMC <= 39.9) {
-            resultado.innerHTML = `<p>Seu IMC é ${resultadoIMC.toFixed(2)} (Obesidade grau 2)</p>`;
+            setResultado(`Seu IMC é ${resultadoIMC} (Obesidade grau 2)`, true);
             resultado.style.backgroundColor = 'rgb(86, 233, 142)';
         }
         else if (resultadoIMC > 40) {
-            resultado.innerHTML = `<p>Seu IMC é ${resultadoIMC.toFixed(2)} (Obesidade grau 3)</p>`;
+            setResultado(`Seu IMC é ${resultadoIMC} (Obesidade grau 3)`, true);
             resultado.style.backgroundColor = 'rgb(86, 233, 142)';
         } 
-        else if (resultadoIMC === NaN && pesoPessoa === NaN) {
-            resultado.innerHTML = `<p>Peso Inválido</p>`;
-            resultado.style.backgroundColor = 'rgb(212, 78, 78)';
-        } 
-        else if (resultadoIMC === NaN && alturaPessoa === NaN) {
-            resultado.innerHTML = `<p>Altura inválida.</p>`;
-            resultado.style.backgroundColor = 'rgb(212, 78, 78)';
-        } 
+
         else if (!pesoPessoa) {
-            resultado.innerHTML = `<p>Peso Inválido</p>`;
+            setResultado('Peso inválido.', false);
             resultado.style.backgroundColor = 'rgb(212, 78, 78)';
         } 
         else if (!alturaPessoa) {
-            resultado.innerHTML = `<p>Altura Inválida.</p>`;
+            setResultado('Altura inválida.', false);
             resultado.style.backgroundColor = 'rgb(212, 78, 78)';
         }
     }
+
+    // Funções distintas com seus objetivos:
+
+    function getIMC(peso, altura) {
+        const imc = peso / altura **2;
+        return imc.toFixed(2);
+        //Entrega o resultado do IMC;
+    }
+
+    function criaP() {
+        const p = document.createElement('p');
+        return p;
+        //Cria elemento <p> no documento;
+    }
+
+    function setResultado(msg, isValid) {
+        const p = criaP();
+        resultado.innerHTML = '';
+        p.innerHTML = msg;
+        resultado.appendChild(p);
+        //Insere o elemento <p> criado através da function criaP() na div resultado selecionada através de querySelector('.resultado');
+    }
     form.addEventListener('submit', recebeEvento);
-}
-meuEscopo();
+
+    // cor vermelha rgb(212, 78, 78);
+    // cor verde rgb(86, 233, 142);
